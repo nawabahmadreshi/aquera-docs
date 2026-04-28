@@ -1,0 +1,67 @@
+name: Build and Deploy (Shared Assets + Versioned Content)
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+
+      - name: Build Site
+        run: |
+          set -e
+          echo "docsBranch: '${GITHUB_REF_NAME}'" >> _config.yml
+          echo "docsVersion: '${GITHUB_REF_NAME}'" >> _config.yml
+          bundle exec jekyll build
+          mv _site ../output
+
+      - name: Deploy to Main Branch
+        run: |
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Move build to a safe place
+          mv ../output /tmp/docs_build
+          
+          # Switch to main branch
+          git checkout main
+          
+          if [ "${GITHUB_REF_NAME}" == "toc" ]; then
+            echo "🚀 Deploying Shared Assets (CSS/JS/Fonts/Images) to Root..."
+            cp -r /tmp/docs_build/css .
+            cp -r /tmp/docs_build/js .
+            cp -r /tmp/docs_build/fonts .
+            cp -r /tmp/docs_build/images .
+            cp /tmp/docs_build/favicon.ico . || true
+          else
+            echo "📂 Deploying Versioned Content to /${GITHUB_REF_NAME}/..."
+            rm -rf "${GITHUB_REF_NAME}"
+            mkdir -p "${GITHUB_REF_NAME}"
+            cp -r /tmp/docs_build/* "${GITHUB_REF_NAME}/"
+            
+            # Special logic for latest
+            if [ "${GITHUB_REF_NAME}" == "draft" ]; then
+              rm -rf latest
+              mkdir -p latest
+              cp -r /tmp/docs_build/* latest/
+            fi
+          fi
+          
+          git add .
+          git commit -m "Deploy ${GITHUB_REF_NAME} [skip ci]" || echo "No changes to commit"
+          git push origin main

@@ -1,5 +1,8 @@
-
-## Install Tizen Studio using CLI  
+---
+title:  Install Tizen Studio using CLI
+desc: Install
+keywords: Tizen, OS, Open Source, HAEM
+---
 
 This page explains how to install Command Line Interface (CLI) version of Tizen Studio. The CLI installer provides functional tools for running Tizen Studio without a Graphical User Interface (GUI) environment.
 The CLI installation is mostly intended for advanced developers. The Tizen Studio CLI installation is supported on all the major operating systems. 
@@ -9,11 +12,11 @@ The CLI installation is mostly intended for advanced developers. The Tizen Studi
 - Ensure that you download the appropriate CLI installer for your operating system. For more information, see the [Download page](https://developer.tizen.org/development/tizen-studio/download#).
 - Ensure that you have Open JDK 10 or Oracle JDK 10 installed on your development hardware. For more information, see the following table to setup the Open JDK: 
 
-    | Operating System  | Open JDK Setup Information  |  
-    |---|----|
-    |  Windows   | link to section on GUI installation -ToDo- |
-    |Ubuntu |       link -ToDo-| 
-    |MacOS  |       link -ToDo- | 
+ | Operating System  | Setup Information  |  
+ |-------------------|------------------------------------------|
+ |    Windows        | [Open JDK instructions](./tizenstudio/setup/windows/#set-up-open-jdk)|
+ |    Ubuntu         | [Open JDK instructions](./tizenstudio/setup/ubuntu/#set-up-open-jdk)| 
+ |    MacOS          | [Open JDK instructions](./tizenstudio/setup/mac/#set-up-open-jdk)| 
 
 ### Tizen Studio Command Line Installation  
 
@@ -33,7 +36,7 @@ Tizen Studio command line installation takes minimal network resources and time 
          ```
        The following table identifies the standard command line options for the CLI installation. Command line options are case insensitive:
    
-       | Options             | Descriptions                              |
+       | Options             | Descriptions                            |
        |--------------------|------------------------------------------|
        | `--show-license`   | Displays the Tizen Studio software license agreement.<br><br><b>Note</b><br><br> You must use this option alone. Do not use with other options.</br> |
        | `--accept-license` | Accepts the license terms.               |

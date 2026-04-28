@@ -1,0 +1,299 @@
+/*
+*
+* utilities
+*
+*/
+
+.archive-panel {
+    padding: 10px 5px;
+    height: 100px;
+    width: 100%;
+    display: none;
+}
+
+.reading-time {
+    font-style: italic;
+    font-size: 12px;
+    display: block;
+    color: rgba(13, 86, 125, 0.55);
+}
+
+.break {
+    margin-bottom: 20px!important;
+}
+/*
+*
+* tables
+*
+*/
+
+table {
+    border: 1px solid rgba(204, 204, 204, 0.29);
+    margin: 0 0 15px 0;
+    width: 100%;
+}
+
+table>tbody>tr:nth-of-type(even) {
+    background-color: #f7f7f7;
+}
+
+td,
+th {
+    padding: 10px;
+}
+
+th,
+td.th {
+    font-weight: bold;
+    padding: 7px 10px 7px 10px;
+    text-align: left;
+}
+
+thead {
+    background: $table-head;
+}
+
+i.fa.fa-indent,
+i.fa.fa-outdent {
+    color: $white;
+    padding: 16px 15px 0 0;
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+
+
+.block {
+    padding: 0px 15px 10px 15px;
+}
+
+
+/*
+*
+* Inline graphics and icons (like the whale menu icon in d4mac, d4win)
+*
+*/
+
+img.inline {
+    display: inline;
+}
+
+/*
+* Search *********************************************************************
+*
+*/
+
+
+.search-form {
+    float: left;
+    margin: 5px 0 0px;
+    // width: 200px;
+    & input[type=text] {
+        background: rgba(0, 0, 0, 0.17) url("/images/search.png") no-repeat;
+        background-position: 10px 9px;
+        border: 0;
+        color: #0C5176;
+        border-radius: 0px;
+        margin: 0;
+        transition: all 0.2s ease;
+        width: 230px;
+    }
+}
+
+.search-form input[type=search] {
+    background: rgba(0, 0, 0, 0.17) url("/images/search.png") no-repeat;
+    background-position: 10px 9px;
+    border: 0;
+    box-shadow: none;
+    color: #fff;
+    border-radius: 0;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    padding: 0px 0 0 35px;
+    width: 100%;
+}
+
+.search-form input[type=text]:focus {
+    background: #fff;
+    box-shadow: 0;
+}
+
+input[type=text],
+.nav-secondary-tabs.affix input[type=text] {
+    background: #10628e;
+    border: 0;
+    margin: 0;
+}
+
+.search-form input[type=search]:focus {
+    background: rgba(255, 255, 255, 0.17)  no-repeat;
+    background-position: 10px 9px;
+}
+
+.nav-secondary-tabs.affix input[type=search],
+input[type=text] {
+    background: rgba(0, 0, 0, 0.17) no-repeat;
+    background-position: 10px 9px;
+    border: 1px solid transparent;
+    box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.nav-secondary input[type=search] {
+    background: rgba(0, 0, 0, 0.17) no-repeat;
+    background-position: 10px 9px;
+    border: 0;
+    box-shadow: none;
+    color: #fff;
+    border-radius: 0;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    padding: 0px 0 0 35px;
+}
+
+.nav-secondary .search-form input[type=search]:focus {
+    background: rgba(255,255,255,0.17)  no-repeat;
+    background-position: 10px 9px;
+}
+
+.search-form input[type=search]::-webkit-input-placeholder {
+    color: #fff;
+    opacity: 1;
+}
+
+.search-form input[type=search]:-moz-placeholder {
+    /* Firefox 18- */
+    color: #fff;
+    opacity: 1;
+}
+
+.search-form input[type=search]::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #fff;
+    opacity: 1;
+}
+
+.search-form input[type=search]:-ms-input-placeholder {
+    color: #fff;
+    opacity: 1;
+}
+
+.search-form{
+    position: relative;
+    margin-top: 10px;
+    .search-button {
+        position: absolute;
+        right: 5px;
+        top: 4px;
+        background: transparent;
+        border: 0;
+        outline: none;
+        font-size: 16px;
+        color: #fff;
+    }
+    input[type=search] {
+        background: rgba(0, 0, 0, 0.17);
+        padding: 0 35px 0 10px;
+    }
+}
+.header-search {
+    margin-top: 30px;
+    margin-bottom: 45px;
+    .search-form{
+        float: none;
+        background: #fff;
+        max-width: 550px;
+        margin: 0 auto 40px;
+        border-radius: 3px;
+        input[type=search] {
+            background: transparent;
+            color: #333;
+            padding: 5px 35px 5px 10px;
+        }
+        .search-button {
+            color: #333;
+            font-size: 20px;
+            top: 2px;
+        }
+    }
+}
+
+
+/*
+  *
+  * google-Results  **********************************************************
+  *
+  */
+
+input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:focus {
+    display: none!important;
+}
+
+
+/*
+*
+* moved from temp css
+*
+*/
+
+@media print
+{
+    .footer
+    {
+        display: none !important;
+    }
+    .col-toc
+    {
+      display: none !important;
+    }
+    .col-nav
+    {
+      display: none !important;
+    }
+    .glyphicon-tags
+    {
+      display: none !important;
+    }
+    #ratings-div 
+    {
+      display: none !important;
+    }
+}
+
+.alert-info {
+    border: 0;
+    border-radius: 0;
+    color: #31708f;
+    background-color: #3F51B5!important;
+    border-color: #bce8f1;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.alert-info ul {
+  list-style-type: none;
+}
+
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fffdfd;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    margin: 10px 15px 0 0;
+}
+
+/* Make table headings  bold, give tables some breathing room */
+
+.content table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -1,4 +1,9 @@
-## Frequently Asked Questions 
+---
+title:  Frequently Asked Questions
+desc: FAQ's
+keywords: Tizen, OS, Open Source
+comments: true
+---
 
 This page contains answers to most commonly asked questions or errors that you may encounter while installing Tizen studio and developing apps in Tizen Studio.
 

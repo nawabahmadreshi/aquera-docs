@@ -1,0 +1,125 @@
+/*
+*
+* hero banner text *************************************************************
+*
+*/
+.VersionNotification {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #fff3cd;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+.navbar-fixed-top {
+    margin-top: 43px;
+}
+.latestVersion {
+    .navbar-fixed-top {
+        margin-top: 0;
+    }
+    .VersionNotification {
+        display: none;
+    }
+    .sidebar{
+        top: 50px;
+    }
+    
+}
+.content {
+    padding: 80px 40px 20px 40px;
+}
+.widgetVersionSwitcher {
+    float: right;
+    select {
+        border: 0;
+        background: transparent;
+        color: #fff;
+        margin: 14px;
+        outline: none;
+        option {
+            font-size: 13.5px;
+            line-height: 16px;
+            color: #1488c6;
+            background: #fff;
+            padding: 5px 15px;
+            &:hover {
+                background: #1488c6;
+                color: #fff;
+            }
+        }
+    }
+}
+.affix-top {
+    .search-form,
+    .widgetVersionSwitcher,
+    .logo {
+        display: none;
+    }
+    #tabs{
+        padding: 0;
+        margin-left: -15px;
+    }
+}
+
+.homepage .col-nav {
+    display: none;
+}
+.p-10 {
+    padding: 10px;
+}
+.px-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.hero-text {
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    min-height: 20em;
+    min-width: 400px;
+    -ms-flex-pack: center;
+    justify-content: center;
+    max-width: 1024px;
+    margin: 0 auto;
+    & h1 {
+        color: $white;
+    }
+    & ul {
+        padding: 0;
+        li {
+            padding: 0 10px 0 0;
+        }
+    }
+    p {
+        color: $white;
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-family: "Open Sans", sans-serif;
+    }
+}
+
+.hero-text-centered {
+    -ms-flex: none;
+    flex: none;
+    text-align: center;
+    max-width: 70%;
+}
+
+
+/** dockercon banner **/
+
+.banner {
+    width: 270px;
+    height: auto;
+    position: absolute;
+    bottom: 55px;
+    right: 0;
+    z-index: 1;
+    img {
+        width: 100%;
+    }
+}

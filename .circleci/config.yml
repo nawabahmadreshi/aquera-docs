@@ -1,0 +1,67 @@
+version: 2.1
+
+jobs:
+  version-prod:
+    working_directory: /project/workspace/
+    docker:
+      - image: ihiddenguy/docker-jekyll
+    steps:
+      - checkout
+
+      # Install dependencies
+      - run:
+          name: Bundle Install
+          command: bundle install
+
+      # Set up Git identity
+      - run:
+          name: Set Git User
+          command: |
+            git config --global user.email "$GITHUB_USER_EMAIL"
+            git config --global user.name "$GITHUB_USER_NAME"
+
+      # Build and version the site
+      - run:
+          name: Generate Version site
+          command: |
+            set -e
+            echo "docsBranch: '$CIRCLE_BRANCH'" >> _config.yml
+            echo "docsVersion: '$CIRCLE_BRANCH'" >> _config.yml
+            bundle exec jekyll build
+            rm -rf ../output
+            mkdir ../output
+            cp -r _site/* ../output
+
+            # Note: You'll need to create this latest-version.txt in your repo or change this logic
+            LATEST_VERSION="main" 
+            if [[ "$LATEST_VERSION" == "$CIRCLE_BRANCH" ]]; then
+              sed -i '$ d' _config.yml
+              echo "docsVersion: latest" >> _config.yml
+              rm -rf ../latest
+              mkdir ../latest
+              bundle exec jekyll build
+              cp -r _site/* ../latest
+            fi
+
+            git checkout -- _config.yml
+            git fetch origin main
+            git checkout main
+            rm -rf "$CIRCLE_BRANCH"
+            cp -r ../output "$CIRCLE_BRANCH"/
+            if [[ "$LATEST_VERSION" == "$CIRCLE_BRANCH" ]]; then
+              rm -rf latest
+              cp -r ../latest latest/
+            fi
+            rm -rf _site/
+            git add -A
+            git commit -m "update docs for $CIRCLE_BRANCH [skip ci]"
+            git push origin main
+
+workflows:
+  version-build-deploy:
+    jobs:
+      - version-prod:
+          filters:
+            branches:
+              ignore:
+                - main

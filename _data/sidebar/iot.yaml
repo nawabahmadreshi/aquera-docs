@@ -1,14 +1,12 @@
 - sidebar:
-      - title: IOT Overview
-        url: iot/about/work-flow/
+      - title: IoT Extension SDK
+        url: iot/extensionsdk/index
         subfolderitems:
-          - page: IOT Development Workflow
-            url: iot/about/work-flow/
           - page: IOT Git Repository Structure
             url: iot/about/git-repo-structure/
           - page: Typographic Conventions
             url: iot/about/conventions/
-      - title: IOT Developing
+      - title: IoT Developing
         url: iot/developing/installing
         subfolderitems:
           - page: Installing Development Tools
@@ -63,3 +61,8 @@
                  url: iot/reference/mic/mic-customize-image/
                - page: MIC Reference
                  url: iot/reference/mic/mic-reference/
+      - title: IoT Partners
+        url: iot/iot-partners/nubison/
+        subfolderitems:
+          - page: IoT Things park
+            url: iot-partners/nubison/

@@ -1,0 +1,28 @@
+- sidebar:
+      - title: Introduction 
+        url: design/introduction/index
+        subfolderitems:
+          - page: Tizen Design Inspiration  
+            url: design/introduction/air/
+          - page: Styles   
+            url: design/introduction/styles/
+      - title: Design for TV
+        url: design/tv/design-principles
+        subfolderitems:
+          - page: Styles   
+            url: design/tv/styles/
+          - page: Design Patterns
+            url: design/tv/overview/
+            subfolderitems:
+              - page: TV App Structure  
+                url: design/tv/patterns/app-structure/
+      - title: Design for Wearable
+        url: design/tv/design-principles
+        subfolderitems:
+          - page: Styles   
+            url: design/tv/styles/
+            subfolderitems:
+              - page: Wearable App Structure  
+                url: design/tv/wearable/           
+       
+        
