@@ -19,8 +19,8 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Use a modern Ruby
-          bundler-cache: false # Disable cache for now to ensure fresh build
+          ruby-version: '3.1'
+          bundler-cache: false
 
       - name: Install Dependencies
         run: |
@@ -49,6 +49,10 @@ jobs:
           
           # Move build to a safe place
           mv ../output /tmp/docs_build
+          
+          # CLEAR WORKSPACE to allow checkout
+          git reset --hard HEAD
+          git clean -fd
           
           # Switch to main branch
           git checkout main
