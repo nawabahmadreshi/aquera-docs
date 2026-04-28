@@ -1,0 +1,25 @@
+# Site settings
+title: Aquera Docs
+description: Official documentation for Aquera - Identity Governance & Administration
+environment: production
+layout: default
+permalink: pretty
+gitOrg: nawabahmadreshi
+gitRepo: aquera-docs-site
+breadcrumbs:
+  root:
+    hide: false
+    image: false
+exclude:
+- README.md
+- Gemfile
+- Gemfile.lock
+- .sass-cache
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "docs"
+sass:
+    sass_dir: _scss

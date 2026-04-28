@@ -1,0 +1,28 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% include head.html %}
+</head>
+<body class="{{page.pageClass}} latestVersion">
+	<div class="widgetLatestVersionNotification"></div>
+	{% include header.html %}
+    <div class="wrapper search-page container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-body">
+					<main class="col-content main-content">
+						<section class="section">
+							{{ content }}
+						</section>
+					</main>
+				</div>
+			</div>
+		</div>
+	</div>
+    {% include footer.html %}
+    <div id="templates"></div>
+    {% include foot.html %}
+</body>
+</html>

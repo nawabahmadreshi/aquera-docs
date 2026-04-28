@@ -1,0 +1,53 @@
+<div class="sidebar-toggle">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+</div>
+<div class="nav-container">
+    <a class="logo" href="/" title="Tizen Documentation">
+        Tizen
+    </a>
+    <div id="tabs">
+        {% assign directory = page.path | split: '/' %}
+        {% assign subdirectory = directory[0] %}
+        <ul class="tabs" id="jsTOCHorizontal">
+            <li>
+                <a href="platform/developing/cloning">Get Tizen</a>
+            </li>
+            <li class="{% if subdirectory == 'platform' %}active{% endif %}">
+                <a href="platform/about/tizen-open-source-overview">Platform</a>
+            </li>
+            <li class="{% if subdirectory == 'application' %}active{% endif %}">
+                <a href="application/">Application</a>
+            </li>
+            <li class="{% if subdirectory == 'iot' %}active{% endif %}">
+                <a href="iot/">IoT</a>
+            </li>
+            <li class="{% if subdirectory == 'tizenstudio' %}active{% endif %}">
+                <a href="tizenstudio/setup/overview">Tizen Studio</a>
+            </li>
+            <li>
+                <a href="https://developer.tizen.org/development/tizen-studio/download" target="_blank">Download</a>
+            </li>
+            <li>
+                <a href="https://www.tizen.org/user/register" target="_blank">Register</a>
+            </li>
+        </ul>
+    </div>
+    <div class="ctrl-right hidden-xs hidden-sm">
+        <a href="javascript:void(0)" id="menu-toggle"><i class="fa fa-indent" aria-hidden="true"></i></a>
+        <div class="widgetVersionSwitcher"></div>
+    </div>
+    <div class="search-form">
+        <form action="search.html">
+            <input class="search-field form-control ds-input st-search-input" value="" name="q" placeholder="Search the docs" type="search" autocomplete="off" spellcheck="false" dir="auto">
+            <button type="submit" class="search-button">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+    
+</div>
