@@ -5,3 +5,4 @@ _site/
 commit.sh
 vendor/
 .bundle/
+Gemfile.lock
