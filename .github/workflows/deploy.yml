@@ -1,27 +1,34 @@
-name: Build and Deploy (Shared Assets + Versioned Content)
+name: Build and Deploy (Integrated Theme + Content)
 
 on:
   push:
     branches:
       - '**'
       - '!main'
+      - '!toc' # We don't build 'toc' alone anymore, it's pulled into content builds
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source
+      - name: Checkout Content Branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Merge Theme from TOC branch
+        run: |
+          set -e
+          echo "🎨 Pulling Theme and Assets from 'toc' branch..."
+          git checkout origin/toc -- _scss css fonts js images _layouts _includes
+          
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7'
           bundler-cache: true
 
-      - name: Build Site
+      - name: Build Integrated Site
         run: |
           set -e
           echo "docsBranch: '${GITHUB_REF_NAME}'" >> _config.yml
@@ -38,30 +45,21 @@ jobs:
           # Move build to a safe place
           mv ../output /tmp/docs_build
           
-          # Switch to main branch
+          # Switch to main branch (the live site)
           git checkout main
           
-          if [ "${GITHUB_REF_NAME}" == "toc" ]; then
-            echo "🚀 Deploying Shared Assets (CSS/JS/Fonts/Images) to Root..."
-            cp -r /tmp/docs_build/css .
-            cp -r /tmp/docs_build/js .
-            cp -r /tmp/docs_build/fonts .
-            cp -r /tmp/docs_build/images .
-            cp /tmp/docs_build/favicon.ico . || true
-          else
-            echo "📂 Deploying Versioned Content to /${GITHUB_REF_NAME}/..."
-            rm -rf "${GITHUB_REF_NAME}"
-            mkdir -p "${GITHUB_REF_NAME}"
-            cp -r /tmp/docs_build/* "${GITHUB_REF_NAME}/"
-            
-            # Special logic for latest
-            if [ "${GITHUB_REF_NAME}" == "draft" ]; then
-              rm -rf latest
-              mkdir -p latest
-              cp -r /tmp/docs_build/* latest/
-            fi
+          echo "📂 Deploying Versioned Content to /${GITHUB_REF_NAME}/..."
+          rm -rf "${GITHUB_REF_NAME}"
+          mkdir -p "${GITHUB_REF_NAME}"
+          cp -r /tmp/docs_build/* "${GITHUB_REF_NAME}/"
+          
+          # If branch is 'draft', also update 'latest'
+          if [ "${GITHUB_REF_NAME}" == "draft" ]; then
+            rm -rf latest
+            mkdir -p latest
+            cp -r /tmp/docs_build/* latest/
           fi
           
           git add .
-          git commit -m "Deploy ${GITHUB_REF_NAME} [skip ci]" || echo "No changes to commit"
+          git commit -m "Deploy integrated build for ${GITHUB_REF_NAME} [skip ci]" || echo "No changes to commit"
           git push origin main
