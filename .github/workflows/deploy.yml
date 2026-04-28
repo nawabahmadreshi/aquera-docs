@@ -5,7 +5,7 @@ on:
     branches:
       - '**'
       - '!main'
-      - '!toc' # We don't build 'toc' alone anymore, it's pulled into content builds
+      - '!toc'
 
 jobs:
   build-and-deploy:
@@ -16,18 +16,23 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' # Use a modern Ruby
+          bundler-cache: false # Disable cache for now to ensure fresh build
+
+      - name: Install Dependencies
+        run: |
+          gem install bundler
+          bundle install
+
       - name: Merge Theme from TOC branch
         run: |
           set -e
           echo "🎨 Pulling Theme and Assets from 'toc' branch..."
           git checkout origin/toc -- _scss css fonts js images _layouts _includes
           
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.7'
-          bundler-cache: true
-
       - name: Build Integrated Site
         run: |
           set -e
@@ -45,7 +50,7 @@ jobs:
           # Move build to a safe place
           mv ../output /tmp/docs_build
           
-          # Switch to main branch (the live site)
+          # Switch to main branch
           git checkout main
           
           echo "📂 Deploying Versioned Content to /${GITHUB_REF_NAME}/..."
@@ -53,7 +58,7 @@ jobs:
           mkdir -p "${GITHUB_REF_NAME}"
           cp -r /tmp/docs_build/* "${GITHUB_REF_NAME}/"
           
-          # If branch is 'draft', also update 'latest'
+          # Handle draft/latest logic
           if [ "${GITHUB_REF_NAME}" == "draft" ]; then
             rm -rf latest
             mkdir -p latest
@@ -61,5 +66,5 @@ jobs:
           fi
           
           git add .
-          git commit -m "Deploy integrated build for ${GITHUB_REF_NAME} [skip ci]" || echo "No changes to commit"
+          git commit -m "Deploy integrated styled build for ${GITHUB_REF_NAME} [skip ci]" || echo "No changes to commit"
           git push origin main
