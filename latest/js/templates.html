@@ -1,0 +1,78 @@
+<!-- Templates-->
+<script id="template-widgetVersionSwitcher" type="text/x-handlebars-template">
+	<select>
+	{{#each versions}}
+		{{#if this.published}}
+			<option value="{{this.branch}}">
+				{{this.title}} {{#if this.latest}}(current){{/if}}
+			</option>
+		{{/if}}	
+	{{/each}}
+	</select>
+</script>
+<script id="template-widgetLatestVersionNotification" type="text/x-handlebars-template">
+	<div class="VersionNotification">
+		Careful! You are browsing documentation for an older version of documentation. Go <a href="/latest/">here</a> to browse the documentation for the latest version
+	</div>
+</script>
+<!-- /Templates-->
+
+<script>
+$(function () {	
+	// Widget Switcher
+	var widgetVersionSwitcherContainer = $("#template-widgetVersionSwitcher").html();
+	var widgetVersionSwitcherTemplate = Handlebars.compile(widgetVersionSwitcherContainer);
+	var widgetVersionSwitcherTemplateHtml = widgetVersionSwitcherTemplate(widgetsData);
+	$('.widgetVersionSwitcher').html(widgetVersionSwitcherTemplateHtml);
+	
+	// Latest Version notification
+	var widgetLatestVersionNotificationContainer = $("#template-widgetLatestVersionNotification").html();
+	var widgetLatestVersionNotificationTemplate = Handlebars.compile(widgetLatestVersionNotificationContainer);
+	var widgetLatestVersionNotificationTemplateHtml = widgetLatestVersionNotificationTemplate(widgetsData);
+	$('.widgetLatestVersionNotification').html(widgetLatestVersionNotificationTemplateHtml);
+	
+// Current URL
+currentUrl = window.location.pathname;
+console.log('current url',currentUrl);
+
+// While page load select current version
+
+if (currentUrl == '/'){
+	$('.widgetVersionSwitcher select').val(latestVersion[0].title);
+	console.log('default',latestVersion[0].title);
+} else {
+	$('.widgetVersionSwitcher select').val(currentVersion);
+	console.log('not-default',currentVersion);
+}
+
+// On Version change
+$('.widgetVersionSwitcher select').on('change', function () {
+	switchVersion = $(this).val();
+	console.log('switch version', switchVersion);
+	if (switchVersion == '/'){
+		updatedUrl = window.location.origin;
+	} else {
+		updatedUrl = currentUrl.replace('latest',switchVersion);
+		updatedUrl = updatedUrl.replace(currentVersion,switchVersion);
+		if (currentUrl == '/'){
+			updatedUrl = window.location.origin + '/' + switchVersion + '/' ;
+		}
+	}
+	console.log('updated url', updatedUrl);
+	window.location = updatedUrl; 
+});
+if (currentVersion == latestVersion[0].branch){
+	$('.widgetLatestVersionNotification').remove();
+} else {
+	$('body').removeClass('latestVersion');
+}
+
+if (currentVersion == 'latest'){
+	$('.widgetLatestVersionNotification').remove();
+};
+olderVersionsCount = $('ul#olderVersions li').length;
+if (olderVersionsCount<1){
+	$('#olderVersionsHeading').hide();
+}
+});
+</script>
